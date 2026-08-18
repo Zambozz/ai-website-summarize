@@ -21,4 +21,4 @@ The application accepts a website URL, visits the website using Groq's built-in 
 - Web search integration
 - Streaming responses
 
-## First project ##
+## First AI project ##
