@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import os
 from IPython.display import Markdown, display
 
+LLM_PROMPT = "Summarize the web page only. If the user input is not a valid URL, reply reply: 'Please insert a valid URL.'"
+
 load_dotenv(override=True)
 
 # put GROQ_API_KEY=insert_api_key_here in the .env file
@@ -25,7 +27,7 @@ def make_call(url):
     response = client.chat.completions.create(
         model="groq/compound",
         messages=messages_for(url),
-        temperature=1,
+        temperature=0.3,
         max_completion_tokens=2048,
         top_p=1,
         stop=None,
@@ -43,7 +45,7 @@ def messages_for(website):
     return [
         {
             "role": "system",
-            "content": "Summarize the web page only. If the user input is not a valid URL, reply reply: 'Please insert a valid URL.'",
+            "content": LLM_PROMPT,
         },
         {"role": "user", "content": website},
     ]
@@ -52,6 +54,9 @@ def messages_for(website):
 def display_summary(url):
     summary = make_call(url)
     display(Markdown(summary))
+
+    # for terminal
+    print(summary)
 
 
 while True:
