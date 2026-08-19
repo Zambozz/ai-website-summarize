@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 from IPython.display import Markdown, display
 
-LLM_PROMPT = "Summarize the web page only. If the user input is not a valid URL, reply reply: 'Please insert a valid URL.'"
+LLM_PROMPT = "Summarize the web page only. If the user input is not a valid URL, reply: 'Please insert a valid URL.'"
 
 load_dotenv(override=True)
 
@@ -30,7 +30,6 @@ def make_call(url):
         temperature=0.3,
         max_completion_tokens=2048,
         top_p=1,
-        stop=None,
         compound_custom={
             "tools": {
                 "enabled_tools": ["web_search", "code_interpreter", "visit_website"]
